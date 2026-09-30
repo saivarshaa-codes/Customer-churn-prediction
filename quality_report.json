@@ -1,0 +1,60 @@
+[
+    {
+        "check_name": "monthly_charges_null_rate",
+        "status": "PASS",
+        "value_found": 0.0,
+        "threshold": 0
+    },
+    {
+        "check_name": "tenure_null_rate",
+        "status": "PASS",
+        "value_found": 0.0,
+        "threshold": 0
+    },
+    {
+        "check_name": "tenure_value_range",
+        "status": "PASS",
+        "value_found": {
+            "min_found": 0.0,
+            "max_found": 72.0
+        },
+        "threshold": "0-100"
+    },
+    {
+        "check_name": "monthly_charges_value_range",
+        "status": "PASS",
+        "value_found": 18.25,
+        "threshold": "> 0"
+    },
+    {
+        "check_name": "contract_allowed_values",
+        "status": "PASS",
+        "value_found": [],
+        "threshold": [
+            "Two year",
+            "One year",
+            "Month-to-month"
+        ]
+    },
+    {
+        "check_name": "row_count",
+        "status": "PASS",
+        "value_found": 7043,
+        "threshold": 7000
+    },
+    {
+        "check_name": "customer_id_duplicates",
+        "status": "PASS",
+        "value_found": 0,
+        "threshold": 0
+    },
+    {
+        "check_name": "churn_distribution",
+        "status": "PASS",
+        "value_found": [],
+        "threshold": [
+            0,
+            1
+        ]
+    }
+]
