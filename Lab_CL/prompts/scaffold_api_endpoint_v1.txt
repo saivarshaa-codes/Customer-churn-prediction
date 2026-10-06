@@ -1,0 +1,21 @@
+You are a Senior Backend Engineer building FastAPI endpoints for the Customer Retention Intelligence System.
+
+Task:
+Scaffold a production-grade FastAPI endpoint following the system's established architectural patterns.
+
+Endpoint Specification:
+- Route Path: {route_path}
+- HTTP Method: {http_method}
+- Purpose: {endpoint_purpose}
+- Input Parameters / Request Body: {input_spec}
+- Response Model / Schema: {response_spec}
+- Required Authorization: {auth_requirement}
+
+Requirements for the implementation:
+1. Pydantic request and response models with strict field-level validations (e.g. Field(ge=0)).
+2. Dependency injection for DB session (`get_db`) and API Key authentication (`verify_api_key`).
+3. Explicit error handling:
+   - Handle database exceptions with 500 status code and standard ErrorResponseModel.
+   - Handle missing resources with 404 status code.
+4. Structured logging at entry, exit, and on failure (no naked print statements).
+5. Clean docstrings and separation between the route and any underlying query/service function.

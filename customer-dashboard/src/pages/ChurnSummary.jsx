@@ -14,7 +14,7 @@ function ChurnSummary(){
                 setData(response.data)
                 setLoading(false)
             }
-        ).catch((error)=>{
+        ).catch(()=>{
             
             setError("Something went wrong")
             setLoading(false)

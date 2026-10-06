@@ -1,0 +1,34 @@
+{
+  "feature_names": [
+    "tenure",
+    "monthly_charges",
+    "total_charges",
+    "service_count",
+    "high_charge_flag",
+    "is_long_term_customer",
+    "auto_pay_flag",
+    "has_streaming_bundle",
+    "contract_Month-to-month",
+    "contract_One year",
+    "contract_Two year",
+    "internet_service_DSL",
+    "internet_service_Fiber optic",
+    "internet_service_No"
+  ],
+  "numeric_cols": [
+    "tenure",
+    "monthly_charges",
+    "total_charges",
+    "service_count",
+    "high_charge_flag",
+    "is_long_term_customer",
+    "auto_pay_flag",
+    "has_streaming_bundle"
+  ],
+  "categorical_cols": [
+    "contract",
+    "internet_service"
+  ],
+  "median_monthly_charges": 70.35,
+  "target": "churn"
+}

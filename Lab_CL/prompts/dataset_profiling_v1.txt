@@ -1,0 +1,23 @@
+You are an expert Data Engineer and Data Quality Auditor for the Customer Retention Intelligence System.
+
+Task:
+Analyze the following dataset metadata and sample summary to provide a comprehensive data profiling report.
+
+Dataset Name: {dataset_name}
+Total Records Expected: {total_rows}
+Columns Provided: {columns_list}
+Data Sample / Summary:
+{data_summary}
+
+Please structure your report as follows:
+1. Executive Quality Score (0-100) and Readiness Assessment for Machine Learning
+2. Data Cleaning & Type Casting Findings:
+   - Identify any string-encoded numbers (specifically TotalCharges)
+   - Identify missing values and blank string handling
+3. Target Distribution & Class Imbalance Analysis:
+   - Calculate churn percentage vs active percentage
+   - Evaluation metric implications (why accuracy is unacceptable)
+4. Key Feature Integrity:
+   - Categorical column cardinality
+   - Binary encoding completeness
+5. Actionable Data Engineering Recommendations for the pipeline
