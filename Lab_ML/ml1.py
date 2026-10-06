@@ -169,11 +169,23 @@ print(comparison)
 
 
 
-# 254. Save both models
+# 254. Save both models and feature schema
 os.makedirs("models", exist_ok=True)
-joblib.dump(logistic_model,"models/logistic_churn.pkl")
-joblib.dump(tree_model,"models/tree_churn.pkl")
+joblib.dump(logistic_model, "models/logistic_churn.pkl")
+joblib.dump(tree_model, "models/tree_churn.pkl")
 print("\nBoth models saved successfully.")
+
+import json
+feature_metadata = {
+    "feature_names": X.columns.tolist(),
+    "numeric_cols": numeric_cols,
+    "categorical_cols": categorical_cols,
+    "median_monthly_charges": float(df["monthly_charges"].median()),
+    "target": "churn"
+}
+with open("models/feature_columns.json", "w") as f:
+    json.dump(feature_metadata, f, indent=2)
+print("Saved feature metadata to models/feature_columns.json")
 
 
 # ============================================================
@@ -197,8 +209,8 @@ plt.barh(top_10.index,top_10.values)
 plt.xlabel("Importance")
 plt.ylabel("Feature")
 plt.title("Decision Tree - Top 10 Feature Importances")
-plt.tight_layout()
-plt.show()
+plt.savefig("models/feature_importance.png")
+plt.close()
 
 
 # 258. Identify top 3 features associated with churn

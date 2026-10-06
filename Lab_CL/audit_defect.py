@@ -54,7 +54,7 @@ AUDIT_TOOL = {
 }
 
 def audit_code():
-    train_path = "train.py"
+    train_path = os.path.join("Lab_ML", "ml1.py")
     predict_path = os.path.join("Lab_ML", "predict.py")
 
     with open(train_path, "r", encoding="utf-8") as f:
@@ -66,14 +66,14 @@ def audit_code():
     prompt = f"""
 Please audit the following two Python scripts for a customer churn machine learning pipeline.
 
-=== train.py ===
+=== Lab_ML/ml1.py ===
 {train_code}
 
-=== predict.py ===
+=== Lab_ML/predict.py ===
 {predict_code}
 
 Task:
-Compare the feature engineering and columns expected by the trained model in train.py with what predict.py builds inside preprocess_input().
+Compare the feature engineering and columns expected by the trained model in Lab_ML/ml1.py with what predict.py builds inside preprocess_input().
 Identify every feature that is set to a placeholder, hardcoded value, or improperly constructed.
 Determine whether this is an inference-time bug or a model training issue.
 DO NOT recommend retraining the model, because the trained model weights and training feature matrix are correct.

@@ -4,42 +4,10 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688.svg)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB.svg)](https://react.dev/)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.3%2B-F7931E.svg)](https://scikit-learn.org/)
+[![PySpark](https://img.shields.io/badge/PySpark-3.5%2B-E25A1C.svg)](https://spark.apache.org/)
 [![Anthropic Claude](https://img.shields.io/badge/Claude%20AI-Sonnet%20%7C%20Haiku-D97706.svg)](https://www.anthropic.com/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](#)
 
-An enterprise-grade, end-to-end customer intelligence and predictive retention platform engineered for telecommunications providers. Built on the canonical **IBM Telco Customer Churn dataset** (7,043 customer accounts, 26.54% churn baseline), this system delivers an integrated architecture spanning distributed data ingestion, star-schema relational data warehousing, PySpark ETL pipelines, high-recall machine learning classification, authenticated FastAPI REST microservices, a responsive React 19 executive dashboard, and an autonomous Claude-powered AI retention assistant with multi-tool calling.
-
----
-
-## System Overview & Screenshots
-
-The platform combines automated data engineering and machine learning with an interactive executive frontend:
-
-### 1. 📊 Executive Churn Analytics
-Interactive retention analytics dashboard visualizing overall churn KPIs, customer volume, and live breakdown distributions across Contract Types and Internet Service tiers.
-
-![Churn Analytics Dashboard](screenshots/churn_analytics.png)
-
----
-
-### 2. 🔍 Real-Time Customer Profile Search
-Instantaneous customer lookup by account ID, rendering contract terms, tenure, monthly billing figures, and active/churn status.
-
-![Customer Profile Search](screenshots/customer_search.png)
-
----
-
-### 3. 🔮 Machine Learning Churn Predictor
-Real-time scenario testing interface powered by the trained Decision Tree classification engine, providing calibrated risk probabilities and confidence scores.
-
-![ML Churn Predictor](screenshots/churn_predictor.png)
-
----
-
-### 4. 🤖 Autonomous Retention AI Assistant
-Conversational assistant powered by Claude 3.5 Sonnet, prompt caching, and four live database tools with real-time audit trails showing executed queries and arguments.
-
-![Retention AI Assistant](screenshots/ai_assistant.png)
+An enterprise-grade, end-to-end customer intelligence and predictive retention platform engineered for telecommunications providers. Built on the canonical **IBM Telco Customer Churn dataset** (7,043 subscriber records, 26.54% churn baseline), this platform features an integrated architecture spanning automated preprocessing, star-schema relational data warehousing, PySpark ETL pipelines, high-recall machine learning classification, high-throughput REST APIs, an executive React dashboard, and an autonomous Claude-powered AI retention assistant.
 
 ---
 
@@ -68,8 +36,8 @@ Conversational assistant powered by Claude 3.5 Sonnet, prompt caching, and four 
                                         ▼
                            ┌─────────────────────────┐
                            │ Phase 6: ML Pipeline    │
+                           │ - Lab_ML/ml1.py         │
                            │ - DecisionTree (F1:0.62)│
-                           │ - Logistic Regression   │
                            │ - models/feature_columns│
                            └────────────┬────────────┘
                                         │
@@ -93,15 +61,15 @@ Conversational assistant powered by Claude 3.5 Sonnet, prompt caching, and four 
 
 ---
 
-## Engineering Highlights by Phase
+## Engineering Breakdown by Phase
 
 ### Phase 1: Python Core & Data Preprocessing (`Lab_CP`)
 - **`customer_cleaner.py`**: Modular `CustomerCleaner` class performing programmatic standardization to `snake_case`, numeric coercion of `total_charges` with zero-tenure imputation, and binary normalization.
-- **`customer_pipeline.py`**: Automated pipeline generating production-ready feature matrices (`cleaned_file_*.csv`, `feature_file_*.csv`).
-- **Feature Engineering**: Derivation of high-value predictive signals including `high_charge_flag`, `is_long_term_customer`, `auto_pay_flag`, and `has_streaming_bundle`.
+- **`customer_pipeline.py`**: Automated end-to-end pipeline generating production-ready feature matrices (`cleaned_file_*.csv`, `feature_file_*.csv`).
+- **Feature Engineering (`lab_cp1.py` – `lab_cp4.py`)**: Derivation of high-value predictive signals including `high_charge_flag`, `is_long_term_customer`, `auto_pay_flag`, and `has_streaming_bundle`.
 
 ### Phase 2: Relational Data Warehouse & Star Schema (`Lab_SQL1`, `Lab_SQL2_3`)
-- **Third Normal Form (3NF) & Star Schema Architecture**:
+- **Star Schema Architecture**: Normalized relational tables in MySQL (`telecom_db`):
   - `dim_contract`: Standardized contract tiers (`Month-to-month`, `One year`, `Two year`).
   - `dim_payment`: Payment channel classifications (`Electronic check`, `Mailed check`, `Bank transfer`, `Credit card`).
   - `customers`: Core subscriber demographic table.
@@ -110,21 +78,21 @@ Conversational assistant powered by Claude 3.5 Sonnet, prompt caching, and four 
   - `v_high_risk_customers`: Real-time view isolating month-to-month accounts with tenure under 12 months and above-average charges.
 
 ### Phase 3: High-Performance FastAPI Backend (`Lab_API`)
-- **Production REST Microservices**:
+- **Production REST Microservices (`main.py`)**:
   - `GET /customer/{customer_id}`: High-speed profile lookup via SQLAlchemy ORM.
   - `GET /churn/summary`: Global retention metrics and segment aggregations.
   - `GET /customers/high-risk`: Prioritized worklist for customer success outreach.
   - `GET /customer/{customer_id}/features`: Feature vector retrieval for external model consumers.
   - `POST /predict-churn`: Real-time inference endpoint executing model predictions.
-  - Comprehensive CORS support, typed Pydantic models, and structured error handling.
+  - Comprehensive CORS support, typed Pydantic models, and structured exception handlers.
 
-### Phase 4: Interactive React 19 Dashboard (`customer-dashboard`)
-- Built with Vite, modern CSS styling, and zero external UI bloat:
-  - Unified tab navigation across all 5 operational views.
-  - Proportional CSS distribution bars for rapid cohort analysis.
-  - Interactive sorting and incremental pagination ("Load More") on high-risk lists.
-  - Instant what-if prediction evaluator with dynamic color-coded risk badges.
-  - Live conversational AI interface with tool execution pill badges and automatic retry logic.
+### Phase 4: Interactive React Dashboard (`customer-dashboard`)
+- Built with React 19 and Vite:
+  - **📊 Churn Analytics**: Global KPIs and proportional CSS distribution bars across contract types and internet service tiers.
+  - **🔍 Customer Profile Search**: Instant lookup card displaying tenure, billing figures, and active/churn status.
+  - **⚠️ High-Risk Queue**: Prioritized retention worklist with tenure-based sorting and incremental pagination ("Load More").
+  - **🔮 ML Churn Predictor**: Real-time what-if scenario evaluator with color-coded risk indicators.
+  - **🤖 Retention AI Assistant**: Conversational assistant interface featuring visible backend tool execution badges and retry logic.
 
 ### Phase 5: Production Data Engineering & PySpark (`data`)
 - **Scalable Ingestion & Quality Gates**:
@@ -135,23 +103,25 @@ Conversational assistant powered by Claude 3.5 Sonnet, prompt caching, and four 
   - `de6_upsert.py`: Incremental `ON DUPLICATE KEY UPDATE` upsert flow for daily extracts.
   - `de7_quality_checks.py`: Comprehensive automated quality gate enforcing null rates, value bounds, primary key uniqueness, row count thresholds, and distribution consistency.
 
-### Phase 6: Machine Learning Pipeline (`Lab_ML` & `train.py`)
-- **Model Training & Selection**:
-  - Cold-terminal retraining script (`train.py`) evaluating Logistic Regression and Decision Tree classifiers via 5-fold cross-validation.
-  - Prioritized **Recall (63.10%)** and **F1-Score (0.6154)** on the Decision Tree to effectively identify departing customers.
-  - Persisted serialized model artifacts to `models/tree_churn.pkl` and `models/logistic_churn.pkl`.
-  - Dynamic feature metadata serialized to `models/feature_columns.json`.
-  - `batch_score.py`: Daily automated scoring job generating `customer_risk_table.csv`.
+### Phase 6: Machine Learning Pipeline (`Lab_ML`)
+- **Model Training & Comparison (`Lab_ML/ml1.py`)**:
+  - Trains and evaluates Logistic Regression and Decision Tree classifiers using stratified 5-fold cross-validation.
+  - Prioritizes **Recall (63.10%)** and **F1-Score (0.6154)** on the Decision Tree to effectively identify churn candidates.
+  - Persists production artifacts to `models/tree_churn.pkl` and `models/logistic_churn.pkl`.
+  - Serializes the formal feature schema to `models/feature_columns.json`.
+- **Inference & Batch Scoring**:
+  - `Lab_ML/predict.py`: Real-time inference engine serving `POST /predict-churn`.
+  - `Lab_ML/batch_score.py`: Daily automated batch scoring job generating `customer_risk_table.csv`.
 
-### Phase 7: Advanced Feature Architecture & Security Boundaries (`Lab_CL`)
-- **`audit_defect.py`**: Automated code auditing via Claude API forced `tool_choice` (`report_defect_findings`), verifying full parity between training schemas and runtime inference.
-- **`predict_fixed.py`**: Calibrated multi-factor inference engine dynamically synchronized with `models/feature_columns.json`.
-- **`run_cl1_experiment.py`**: Full-dataset calibration verification proving risk alignment with ground truth:
-  - Predicted Churn Rate: **28.10%** *(perfectly calibrated against the actual **26.54%** baseline)*.
-- **`project_context.py`**: Compact (<200 lines) durable enterprise memory prepended to all LLM prompts.
-- **`prompt_loader.py`**: Secure prompt loader equipped with an automated **Secret-Leakage Guard** preventing environment variables from entering prompts, plus strict argument validation.
+### Phase 7: Claude AI Feature Synchronization & Security Boundaries (`Lab_CL`)
+- **`audit_defect.py`**: Automated schema auditing using Claude API forced `tool_choice` (`report_defect_findings`), verifying full parity between training pipelines (`Lab_ML/ml1.py`) and runtime inference.
+- **`predict_fixed.py`**: Calibrated multi-factor inference engine dynamically bound to `models/feature_columns.json`.
+- **`run_cl1_experiment.py`**: Empirical validation confirming risk calibration across the full subscriber base:
+  - Calibrated Model Churn Rate: **28.10%** *(aligned with ground truth: **26.54%**)*.
+- **`project_context.py`**: Compact (<200 lines) durable enterprise memory prepended to LLM system prompts.
+- **`prompt_loader.py`**: Secure template loader equipped with an automated **Secret-Leakage Guard** preventing environment variables from entering prompts, plus strict argument validation.
 - **`security_review.py`**: Isolated human-directed code security auditing module.
-- **`test_cl2_security.py`**: Automated test suite validating prompt rendering, bounds checks, and secret leakage prevention.
+- **`test_cl2_security.py`**: Automated test suite verifying template loading, bounds checks, and secret leakage prevention.
 
 ### Phase 8: Autonomous Retention AI Assistant (`Lab_AI`)
 - **`assistant_api.py`**: Dedicated FastAPI service (`/assistant/chat`) featuring prompt caching (reducing input token costs by ~90%), bounded conversational history (last 8 turns), and cost-optimized model routing.
@@ -169,7 +139,7 @@ Conversational assistant powered by Claude 3.5 Sonnet, prompt caching, and four 
 | **Decision Tree (Max Depth = 5)** | **79.06%** | **60.05%** | **63.10%** | **0.6154** | **0.5710** | **Primary Classifier** |
 | **Logistic Regression** | 77.71% | 60.42% | 46.52% | 0.5257 | 0.5663 | Baseline Comparison |
 
-> **Strategy**: In customer retention operations, missing a churned customer (False Negative) is significantly more detrimental than proactively reaching out to a customer who stays (False Positive). The Decision Tree was selected for production because it maximizes Recall (63.10%).
+> **Selection Rationale**: In telecom retention operations, missing a customer who is about to churn (False Negative) is significantly more costly than proactively reaching out to a customer who stays (False Positive). The Decision Tree was selected for production because it maximizes Recall (63.10%).
 
 ---
 
@@ -198,26 +168,20 @@ Report:    Lab_AI/evaluation_report.json
 
 ```text
 Prodapt_Labs/
-├── train.py                          # Cold-terminal training & schema serializer
 ├── requirements.txt                  # Python dependencies
 ├── .env.example                      # Environment configuration template
 ├── .gitignore                        # Git ignore patterns
+├── README.md                         # Project documentation
 │
-├── screenshots/                      # APPLICATION SCREENSHOTS
-│   ├── churn_analytics.png           # Churn Overview dashboard
-│   ├── customer_search.png           # Customer Profile lookup card
-│   ├── churn_predictor.png           # ML Churn Predictor form
-│   └── ai_assistant.png              # AI Assistant chat with tool badges
-│
-├── models/                           # TRAINED ML MODELS & SCHEMA
+├── models/                           # TRAINED ML MODELS & SCHEMA CONTRACT
 │   ├── logistic_churn.pkl            # Logistic Regression classifier
-│   ├── tree_churn.pkl                # Decision Tree classifier
+│   ├── tree_churn.pkl                # Decision Tree classifier (Primary)
 │   └── feature_columns.json          # Persisted ML feature contract
 │
 ├── Lab_CP/                           # PHASE 1: PYTHON CORE
 │   ├── customer_cleaner.py           # Reusable data cleaner class
 │   ├── customer_pipeline.py          # End-to-end data pipeline
-│   ├── lab_cp1.py - lab_cp4.py       # EDA, insights, and feature engineering
+│   ├── lab_cp1.py - lab_cp4.py       # EDA, business insights, and feature engineering
 │   └── cutomer_cleaner_test.py       # Cleaner verification test
 │
 ├── Lab_SQL1/                         # PHASE 2: DATABASE SETUP
@@ -255,15 +219,15 @@ Prodapt_Labs/
 │   └── de7_quality_checks.py         # Automated data quality gate
 │
 ├── Lab_ML/                           # PHASE 6: MACHINE LEARNING
-│   ├── ml1.py                        # Model training and comparison
+│   ├── ml1.py                        # Model training, CV comparison, and feature export
 │   ├── predict.py                    # Real-time inference logic
 │   └── batch_score.py                # Daily batch scoring job
 │
-├── Lab_CL/                           # PHASE 7: ADVANCED ARCHITECTURE & SECURITY
-│   ├── audit_defect.py               # Lab CL1: Automated schema auditor
-│   ├── predict_fixed.py              # Lab CL1: Calibrated inference engine
-│   ├── run_cl1_experiment.py         # Lab CL1: Empirical validation
-│   ├── project_context.py            # Lab CL2: Durable project memory
+├── Lab_CL/                           # PHASE 7: CLAUDE AI & SECURITY BOUNDARIES
+│   ├── audit_defect.py               # Lab CL1: Automated schema parity auditor
+│   ├── predict_fixed.py              # Lab CL1: Calibrated multi-factor inference engine
+│   ├── run_cl1_experiment.py         # Lab CL1: Full-dataset empirical validation
+│   ├── project_context.py            # Lab CL2: Durable project memory (<200 lines)
 │   ├── prompt_loader.py              # Lab CL2: Template loader & secret guard
 │   ├── security_review.py            # Lab CL2: Human-isolated security auditor
 │   ├── test_cl2_security.py          # Lab CL2: Security test suite
@@ -282,6 +246,45 @@ Prodapt_Labs/
     ├── eval_assistant.py             # Lab AI5: 15-question benchmark suite
     ├── assistant_audit_log.json      # Lab AI5: Execution audit log
     └── evaluation_report.json        # Lab AI5: Metrics report
+```
+
+---
+
+## Executive UI Interface
+
+The unified React 19 dashboard provides clean, focused views across five operational tabs:
+
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│  CUSTOMER RETENTION INTELLIGENCE SYSTEM                                                │
+│  Enterprise Telecom Analytics · Machine Learning · AI Assistant                        │
+│                                                                                        │
+│  [ 📊 Churn Analytics ] [ 🔍 Customer Search ] [ ⚠️ High-Risk Queue ]                 │
+│  [ 🔮 ML Churn Predictor ] [ 🤖 Retention AI Assistant ]                                │
+├────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                        │
+│  1. 📊 Churn Analytics:                                                                │
+│     Total Customers: 7,043  │  Total Churned: 1,869  │  Churn Rate: 26.5%              │
+│     • Month-to-month: [████████████████████                    ] 42.7%                 │
+│     • One year:       [████                                    ] 11.3%                 │
+│     • Two year:       [█                                       ]  2.8%                 │
+│                                                                                        │
+│  2. 🔍 Customer Search:                                                                │
+│     Input: [ 7590-VHVEG ] [ Search ]                                                   │
+│     Card: Tenure: 1 month | Contract: Month-to-month | Monthly: $29.85 | Status: Active │
+│                                                                                        │
+│  3. ⚠️ High-Risk Queue:                                                                │
+│     Prioritized worklist with interactive sorting on Tenure, Charges, and Risk Reason  │
+│                                                                                        │
+│  4. 🔮 ML Churn Predictor:                                                             │
+│     Inputs: Tenure: 2 | Monthly: $85 | Contract: Month-to-month | Services: 1          │
+│     Result Badge: [ High Risk: 72.1% — Likely to churn ]                               │
+│                                                                                        │
+│  5. 🤖 Retention AI Assistant:                                                         │
+│     Chat conversation window with prompt suggestions, bounded history (8 turns),       │
+│     and visible backend tool badges:                                                   │
+│     [ Tools Executed: get_customer_profile({"customer_id": "7590-VHVEG"}) ]            │
+└────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -314,8 +317,9 @@ ANTHROPIC_API_KEY=sk-ant-api...
 ```
 
 ### 3. Model Training & Schema Serialization
+Train models, evaluate cross-validation metrics, and serialize feature metadata:
 ```bash
-python train.py
+python Lab_ML/ml1.py
 ```
 
 ### 4. Launch Backend Services
@@ -328,7 +332,7 @@ In a second terminal, start the AI Assistant service:
 ```bash
 python Lab_AI/assistant_api.py
 ```
-*(Swagger UI available at `http://127.0.0.1:8000/docs` and `http://127.0.0.1:8001/docs`)*.
+*(Interactive API documentation available at `http://127.0.0.1:8000/docs` and `http://127.0.0.1:8001/docs`)*.
 
 ### 5. Launch React Dashboard
 ```bash
@@ -338,7 +342,7 @@ npm run dev
 ```
 Navigate to `http://localhost:5173` to explore all five views.
 
-### 6. Run Test & Verification Suites
+### 6. Run Verification & Test Suites
 ```bash
 # Phase 7: Automated schema audit & empirical calibration experiment
 python Lab_CL/audit_defect.py
